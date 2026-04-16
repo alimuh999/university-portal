@@ -4,7 +4,8 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 export default defineConfig({
-  base: "/", // Netlify ke liye important
+  // ✅ IMPORTANT FIX for Netlify + Vercel SPA routing
+  base: "./",
 
   plugins: [
     react(),
@@ -18,12 +19,12 @@ export default defineConfig({
   },
 
   build: {
-    outDir: "dist", // simple rakha for Netlify
+    outDir: "dist",
     emptyOutDir: true,
   },
 
   server: {
-    port: 5173, // default Vite port
+    port: 5173,
     host: true,
   },
 
