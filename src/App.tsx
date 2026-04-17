@@ -36,50 +36,66 @@ function PublicRoute({ component: Component }: { component: React.ComponentType 
 }
 
 function Router() {
+  const { student } = useAuth();   // ✅ yeh line add karo
+
   return (
     <Switch>
       <Route path="/">
-        <Redirect to="/dashboard" />
+        {student ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
       </Route>
+
       <Route path="/login">
         <PublicRoute component={Login} />
       </Route>
+
       <Route path="/register">
         <PublicRoute component={Register} />
       </Route>
+
       <Route path="/dashboard">
         <ProtectedRoute component={Dashboard} />
       </Route>
+
       <Route path="/profile">
         <ProtectedRoute component={Profile} />
       </Route>
+
       <Route path="/complaints">
         <ProtectedRoute component={Complaints} />
       </Route>
+
       <Route path="/clearance">
         <ProtectedRoute component={Clearance} />
       </Route>
+
       <Route path="/courses">
         <ProtectedRoute component={Courses} />
       </Route>
+
       <Route path="/marksheet">
         <ProtectedRoute component={Marksheet} />
       </Route>
+
       <Route path="/exam-form">
         <ProtectedRoute component={ExamForm} />
       </Route>
+
       <Route path="/admit-card">
         <ProtectedRoute component={AdmitCard} />
       </Route>
+
       <Route path="/timetable">
         <ProtectedRoute component={Timetable} />
       </Route>
+
       <Route path="/leave">
         <ProtectedRoute component={LeaveRequest} />
       </Route>
+
       <Route path="/gate-pass">
         <ProtectedRoute component={GatePass} />
       </Route>
+
       <Route component={NotFound} />
     </Switch>
   );
@@ -89,7 +105,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+        <WouterRouter>
           <Router />
         </WouterRouter>
       </AuthProvider>
